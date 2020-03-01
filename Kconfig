@@ -1,0 +1,4 @@
+config STM32F1_RTC
+	bool "RTC driver"
+	help
+	  Enable RTC.
