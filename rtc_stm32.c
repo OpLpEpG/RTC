@@ -105,9 +105,8 @@ static int stm32_rtc_initilize(struct device *dev) {
   */
   LL_RTC_InitTypeDef RTC_InitStruct = {0};
 
-  RTC_InitStruct.AsynchPrescaler = 0xFFFFFFFFU;
+  LL_RTC_StructInit(&RTC_InitStruct);
   LL_RTC_Init(RTC, &RTC_InitStruct);
-  LL_RTC_SetAsynchPrescaler(RTC, 0xFFFFFFFFU);
   /** Initialize RTC and set the Time and Date 
   */
   LL_RTC_TimeTypeDef RTC_TimeStruct = {0};
