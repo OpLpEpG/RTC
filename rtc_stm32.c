@@ -49,24 +49,24 @@ static void stm32_rtc_setTime(rtc_ts_t ts) {
 		.Month = ts.d.month,
 		.Day = ts.d.day,
 		.WeekDay = ts.d.weekday
-	};
+	};*/
 
 	LL_RTC_TimeTypeDef rtc_time = {
-		.TimeFormat = LL_RTC_TIME_FORMAT_AM_OR_24,
+		// .TimeFormat = LL_RTC_TIME_FORMAT_AM_OR_24,
 		.Hours = ts.t.hours,
 		.Minutes = ts.t.minutes,
 		.Seconds = ts.t.seconds
 	};
 
-	if (LL_RTC_DATE_Init(RTC, LL_RTC_FORMAT_BIN, &rtc_date) != SUCCESS) {
-		LOG_ERR("set date failed");
-	}
+	// if (LL_RTC_DATE_Init(RTC, LL_RTC_FORMAT_BIN, &rtc_date) != SUCCESS) {
+		// LOG_ERR("set date failed");
+	// }
 
 	if (LL_RTC_TIME_Init(RTC, LL_RTC_FORMAT_BIN, &rtc_time) != SUCCESS) {
 		LOG_ERR("set time failed");
 	}
 
-	LOG_INF("set RTC clock to %02u-%02u-%02u %02u:%02u:%02u:%04u",
+/*	LOG_INF("set RTC clock to %02u-%02u-%02u %02u:%02u:%02u:%04u",
 		(unsigned int) ts.d.day,
 		(unsigned int) ts.d.month,
 		(unsigned int) ts.d.year,
@@ -98,31 +98,22 @@ static int stm32_rtc_initilize(struct device *dev) {
   /* Peripheral clock enable */
     LL_RCC_EnableRTC();
 
-  /* USER CODE BEGIN RTC_Init 1 */
-
-  /* USER CODE END RTC_Init 1 */
-  /** Initialize RTC and set the Time and Date 
-  */
-  LL_RTC_InitTypeDef RTC_InitStruct = {0};
-
+  LL_RTC_InitTypeDef RTC_InitStruct;
   LL_RTC_StructInit(&RTC_InitStruct);
-  LL_RTC_Init(RTC, &RTC_InitStruct);
-  /** Initialize RTC and set the Time and Date 
-  */
-  LL_RTC_TimeTypeDef RTC_TimeStruct = {0};
-  RTC_TimeStruct.Hours = 20;
-  RTC_TimeStruct.Minutes = 11;
-  RTC_TimeStruct.Seconds = 22;
-  LL_RTC_TIME_Init(RTC, LL_RTC_FORMAT_BCD, &RTC_TimeStruct);
-
-
-	if (LL_RTC_DeInit(RTC) != SUCCESS) {
+  	if (LL_RTC_DeInit(RTC) != SUCCESS) {
 		return -EIO;
 	}
 
 	if (LL_RTC_Init(RTC, &RTC_InitStruct) != SUCCESS) {
 		return -EIO;
 	}
+
+  LL_RTC_TimeTypeDef RTC_TimeStruct;
+  RTC_TimeStruct.Hours = 0;
+  RTC_TimeStruct.Minutes = 0;
+  RTC_TimeStruct.Seconds = 0;
+  LL_RTC_TIME_Init(RTC, LL_RTC_FORMAT_BCD, &RTC_TimeStruct);
+
 
 	//  LL_RTC_EnableShadowRegBypass(RTC);
 

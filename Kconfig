@@ -1,4 +1,4 @@
 config STM32F1_RTC
-	bool "RTC driver"
+	bool "RTC driver PC14 PС15 ОТРЕЗАТЬ!!! из-за емкости неработает кварц RTC"
 	help
 	  Enable RTC.
